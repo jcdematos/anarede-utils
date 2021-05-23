@@ -1,7 +1,10 @@
 import sys
 import re
+import time
 import matplotlib.pyplot as plt
 from collections import namedtuple
+
+start_time = time.time()
 
 # to implement
 # be able to pass no argument, will get pv.plt this ways
@@ -43,8 +46,8 @@ if 1:
     xtitle = lines[0].replace('\n', '')
     ytitle = "Tensao"
     lines.pop(0)
-    print(title, end="")
-    print(xtitle, end="")
+    #print(title, end="")
+    #print(xtitle, end="")
 
 
     patternValores = r"\d+[.]\d{4}"
@@ -80,10 +83,16 @@ if 1:
 #            print(lines[i], end="")
 #    print("N entries = " + str(numberEntries))
 
+    k = 0
     for b in barra:
         plt.figure(b.barra)
         plt.ylabel(b.ytitle)
         plt.xlabel(b.xtitle)
         plt.title(b.title + " " + b.barra)
+
         plt.plot(xvalues, yvalues)
-    plt.show()
+        plt.savefig("figures/"+str(k)+"png")
+        plt.close()
+        k+=1
+
+print("--- %s seconds ---" % (time.time() - start_time))
