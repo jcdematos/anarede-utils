@@ -3,19 +3,14 @@ import re
 import time
 import matplotlib.pyplot as plt
 from collections import namedtuple
-
-start_time = time.time()
-
-# to implement
-# be able to pass no argument, will get pv.plt this ways
-# be able to pass the argument of the file as restricting
-#   use -o for open
-# be able to open a dialog to choose the file
-#   use -d for open dialog
-#print('Numbers of arguments: {}'.format(len(sys.argv)))
-#print('Arguments(s) passed{}'.format(str(sys.argv)))
+import tkinter as tk
+from tkinter import filedialog
 
 
+Barra = namedtuple('Barra', 'title, xtitle, ytitle, barra, xdata, ydata')
+#barra.append(Entrie('Titulo - Barra', 'xtitle', 'MW', 'ytitle', 'Tensoa V', 'barra', [1], [2]))
+barra = []
+file = "pv.plt"
 # how to parse the file?
 # file structure:
 # two first lines seems to be headers
@@ -30,13 +25,25 @@ start_time = time.time()
 # data for x and y, respectivly
 # for numbers, anarede seems to use 4 decimals, this may be of use on regex
 #Entrie = namedtuple('Entrie', 'title, xtitle, xunit, ytitle, yunit, barra, xdata, ydata')
-Barra = namedtuple('Barra', 'title, xtitle, ytitle, barra, xdata, ydata')
-#barra.append(Entrie('Titulo - Barra', 'xtitle', 'MW', 'ytitle', 'Tensoa V', 'barra', [1], [2]))
-barra = []
 
+# to implement
+# be able to pass the argument of the file as restricting
+#   use -o for open
+
+#print('Numbers of arguments: {}'.format(len(sys.argv)))
+#print('Arguments(s) passed{}'.format(str(sys.argv)))
+if len(sys.argv) > 1:
+    for argument in (sys.argv):
+        if argument == '-d':
+            root = tk.Tk()
+            root.withdraw()
+
+            file = filedialog.askopenfilename()
+
+
+start_time = time.time()
 if 1:
-    # read file into lines
-    with open('pv.plt', 'r') as dados:
+    with open(file, 'r') as dados:
         lines = dados.readlines();
 
     # get global title and x axis
