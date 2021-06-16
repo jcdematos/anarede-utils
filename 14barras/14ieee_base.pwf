@@ -1,10 +1,5 @@
 TITU
 ****   Sistema teste de 14 barras - IEEE  Base ****                                                                   
-DOPC IMPR
-(Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E
-QLIM L CREM L CTAP L STEP L NEWT L MOCT L MOCG L MOCF L RCVG L RMON L
-FILE L
-99999
 DCTE
 (Mn) ( Val) (Mn) ( Val) (Mn) ( Val) (Mn) ( Val) (Mn) ( Val) (Mn) ( Val) 
 BASE   100. DASE   100. TEPA     .1 EXST     .4 TETP     .5 TBPA     5.
@@ -62,4 +57,16 @@ DGLT
 (G (Vmn) (Vmx) (Vmne (Vmxe
  0   .95  1.05   .95  1.05
 99999
+exlf newt qlim ctap
+ULOG
+2
+14ieee_base.his
+ARQV INIC IMPR
+SIM
+ARQV GRAV IMPR SUBS
+01
+ULOG
+4
+14ieee_base.rel
+RELA FILE 80CO RBAR RLIN
 FIM
