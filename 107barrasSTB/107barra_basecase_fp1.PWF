@@ -354,7 +354,7 @@ DOSC
 (MOVE   CONT_002.SAV  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\CONT_002.SAV 
 (MOVE   CONT_003.SAV  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\CONT_003.SAV 
 (MOVE   CONT_004.SAV  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\CONT_004.SAV
-(TASKKILL /F  /im ANAREDE.exe
+TASKKILL /F  /im ANAREDE.exe
 EXIT
 99999
 FIM
