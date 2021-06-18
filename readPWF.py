@@ -1,10 +1,8 @@
 """
 PROGRAM NAME - readPWF
 PROGRAMMER - J. Matos, 06-2021
-USAGE - threshold <image-file> <num-rows> <num-cols> <thresh-value>
-	where <image-file> contains an image array of size
-	<num-rows> X <num-cols>, and <thresh-value> is the desired
-	pixel threshold value.
+USAGE - Run the program and pick a PWF file using, either using -d to choose
+		in a file picker or -o to give the path to the file.
 DATE - Started 14/06/2021
 BUGS -
 DESCRIPTION - Programa que le o pwf de um caso base do ANAREDE e remove dados
