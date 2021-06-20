@@ -81,8 +81,8 @@ class Bar:
 		self.grupoBase = grupoBase
 		self.nome = nome
 		self.area = area
-	def printBar():
-		print(self + number + estado + tipo + grupoBase + nome + area)
+	def printBar(self):
+		print(self.number + self.estado + self.tipo + self.grupoBase + self.nome + self.area)
 
 def printBars():
 	print(Bar.caseTitle, end="")
@@ -113,24 +113,21 @@ for entrie in range(0, len(fLines)):
 		continue
 	if (line.startswith("DBAR")):
 		# Get basic information from bars
-		entrie += 1
-		line = fLines[entrie]
-#		while not line.startswith("99999"):
 		while True:
-			line = fLines[entrie]
 			entrie += 1
+			line = fLines[entrie]
 			if (line.startswith("99999")):
 				break
 			if (line.startswith("(")):
 				continue
 			else:
 				Bar.nBars += 1
-				number = line[0:4]
+				number = line[0:5]
 				estado = line[6]
 				tipo = line[7]
-				grupoBase = line[8:9]
-				nome = line[10:21]
-				area = line[73:75]
+				grupoBase = line[8:10]
+				nome = line[10:22]
+				area = line[73:76]
 				myBars.append(Bar(number,estado,tipo,grupoBase,nome,area))
 	if (line.startswith("ULOG")):
 		if (fLines[entrie+2].rfind("rel") != -1):
@@ -142,10 +139,8 @@ for entrie in range(0, len(fLines)):
 result = runAnarede(file)
 files = [Bar.relPath, Bar.hisPath]
 moveFiles(pathAnarede, pathWork, files)
-printBars()
 
 print("Barras lidas")
 for bar in myBars:
-	print(Bar.nBars)
-	print(bar.printBar)
+	Bar.printBar(bar)
 print("--- %s seconds ---" % (time.time() - start_time))
