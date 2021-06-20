@@ -1,8 +1,8 @@
 """
 PROGRAM NAME - readPWF
 PROGRAMMER - J. Matos, 06-2021
-USAGE - Run the program and pick a PWF file using, either using -d to choose
-		in a file picker or -o to give the path to the file.
+USAGE - Run the program and pick a PWF file using, give no argument to open a
+		file dialog, or -o to give a string with the file path.
 DATE - Started 14/06/2021
 BUGS -
 DESCRIPTION - Programa que le o pwf de um caso base do ANAREDE e remove dados
