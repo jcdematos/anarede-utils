@@ -54,9 +54,8 @@ def readFile(file):
 	return lines
 
 def runAnarede(file):
-	run = "start anarede -o \"" + file + "\""
-	print(run)
-	return os.system(run)
+	""" Runs anarede with the given file """
+	return subprocess.run(["anarede", file], stdout=subprocess.PIPE, text=True)
 
 class Bar:
 	""" Class to hold data for the bars """
