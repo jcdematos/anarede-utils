@@ -69,4 +69,9 @@ ULOG
 4
 14ieee_base.rel
 RELA FILE RBAR RLIN
+DOSC
+( Fechar o ANAREDE apos finalizar
+TASKKILL /F  /im ANAREDE.exe
+EXIT
+99999
 FIM
