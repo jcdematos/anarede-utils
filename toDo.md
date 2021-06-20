@@ -1,20 +1,26 @@
 # Organização do Projeto
 ## Organização das Tarefas
 
-### Python Programs
-#### pvPlot
-* Descartar barras de geração
-#### readREL
-* Find type of the bars
-* Read voltage of each bar
-* Read the angle of each bar
-* Read the generation for PQ e V0 bars
-* Read the load for each bar
-* Read the shunt of each bar
+### Programas
+#### readPWF
+1. Ler um arquivo PWF
+  1. ~~Encontra nome dos arquivos .his e .rel gerados~~
+  2. ~~Encontra número de barras~~
+  3. ~~Pega dados de cada barra~~
+  3. ~~Roda simulação no ANAREDE~~
+  2. ~~Move arquivos para pasta de trabalho~~
 
-# Ideia do Algoritmo
-0. Executar o pwf para gerar REL
-1. Ler o arquivo REL e pegar dados das barras
+#### readREL
+0. ~~Executar o pwf para gerar REL~~
+1. ~~Ler o arquivo REL e pegar dados~~
+  1. Modulo tensão
+  2. Angulo da barra
+  3. Dados de geração
+  4. Dados de carga
+
+#### cpflowGen
+1. Generate files variying PF
+  1. Change PF
 2. Executar o pwf de CPFLOW
 3. Ler o arquivo plt
   1. Descartar barras de geração
