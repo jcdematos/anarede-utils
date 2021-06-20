@@ -73,11 +73,22 @@ class Bar:
 	nBars = 0 # numbers of bars
 	caseTitle = ""
 	relPath = ""
-	def __init__(type):
-		self.type = type;
+	hisPath = ""
+	files = [relPath, hisPath]
+	def __init__(self, number, estado, tipo, grupoBase, nome, area):
+		self.number = number
+		self.estado = estado
+		self.tipo = tipo
+		self.grupoBase = grupoBase
+		self.nome = nome
+		self.area = area
+	def printBar():
+		print(self + number + estado + tipo + grupoBase + nome + area)
 
-	def defineTitle(title):
-		caseTitle = title
+def printBars():
+	print(Bar.caseTitle, end="")
+	print(Bar.hisPath, end="")
+	print(Bar.relPath, end="")
 
 myBars = []
 file = openFile(sys, "case.pwf")
