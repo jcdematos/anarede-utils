@@ -42,7 +42,7 @@ def openFile(sys, file):
 		file = filedialog.askopenfilename()
 	return file
 
-def cleanHeads():
+def cleanHeader():
 	""" Function to clear the headers created by anarede """
 	pass
 
