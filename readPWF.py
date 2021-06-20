@@ -30,16 +30,16 @@ def workPath(file):
 	return file[0:fileStart]
 
 def openFile(sys, file):
+	""" Abri arquivo a ser usado, dado por argumento ou dialog box """
 	if len(sys.argv) > 1:
 		for argument in (sys.argv):
-			print(argument)
-			if argument == '-d':
-				root = tk.Tk()
-				root.withdraw()
-				file = filedialog.askopenfilename()
 			if argument == '-o':
 				# open file from string passed
 				pass
+	else:
+		root = tk.Tk()
+		root.withdraw()
+		file = filedialog.askopenfilename()
 	return file
 
 def cleanHeads():
