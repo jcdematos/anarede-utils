@@ -57,6 +57,17 @@ def runAnarede(file):
 	""" Runs anarede with the given file """
 	return subprocess.run(["anarede", file], stdout=subprocess.PIPE, text=True)
 
+def moveFiles(anaPath, workPath, filesList, mkdir=False, dirName="tempDir"):
+	""" Move files from anarede work dir to the desired work dir """
+	anaPath = anaPath
+	workPath = workPath
+	for file in filesList:
+		scr = anaPath+"/"+file
+		dst = workPath+"/"+file
+		if os.path.exists(dst): # Delete file if already exists
+			Path(dst).unlink(True)
+		Path(scr).rename(dst)
+
 class Bar:
 	""" Class to hold data for the bars """
 	nBars = 0 # numbers of bars
