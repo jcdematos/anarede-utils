@@ -18,6 +18,16 @@ import pexpect
 import tkinter as tk
 from tkinter import filedialog
 
+def anaredePath(config="anaredePath.config"):
+	""" Open config file and get anarede path """
+	path = readFile(config)[0]
+	if os.path.exists(path):
+		return path
+	return False
+
+def workPath(file):
+	fileStart = file.rfind("/")
+	return file[0:fileStart]
 
 def openFile(sys, file):
 	if len(sys.argv) > 1:
