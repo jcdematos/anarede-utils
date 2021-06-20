@@ -13,7 +13,7 @@ import os
 import re
 import time
 import subprocess
-import pexpect
+from pathlib import Path
 
 import tkinter as tk
 from tkinter import filedialog
@@ -47,10 +47,9 @@ def cleanHeader():
 	pass
 
 def readFile(file):
-	contador = 0
+	""" Reads a file and returns a list of lines """
 	with open(file, 'r') as dados:
 		lines = dados.readlines();
-	print("Linhas lidas %s" % len(lines))
 	return lines
 
 def runAnarede(file):
@@ -91,43 +90,62 @@ def printBars():
 	print(Bar.relPath, end="")
 
 myBars = []
+
+# Make directory structure
 file = openFile(sys, "case.pwf")
-print("Readin file : %s" % file)
-#here get path of file as to create directory strutcture
+print("Reading file : %s" % file)
+pathAnarede = anaredePath()
+print("Anarede path is " + pathAnarede)
+pathWork = workPath(file)
+print("Working Directory path is " + pathWork)
 
 start_time = time.time()
 #------------------------------------------------------------------------------
+
 fLines = readFile(file)
-print("fLines has %s lines" % len(fLines))
 #------------------------------------------------------------------------------
-#for line in fLines:
-stripElements = [" ", "\n"]
 for entrie in range(0, len(fLines)):
 	line = fLines[entrie]
-	if (line.startswith("(")):
-		continue # Ignore comment lines
 	if (line.startswith("TITU")):
-		Bar.caseTitle = fLines[entrie+1]
+		# Salva nome do título do caso
+		Bar.caseTitle = fLines[entrie+1].rstrip("\n")
 		# Later use rstrip to remove new line and spaces
 		continue
-	# First reading only DBAR and ULOG commands
 	if (line.startswith("DBAR")):
-		pass
+		# Get basic information from bars
+		entrie += 1
+		line = fLines[entrie]
+#		while not line.startswith("99999"):
+		while True:
+			line = fLines[entrie]
+			entrie += 1
+			if (line.startswith("99999")):
+				break
+			if (line.startswith("(")):
+				continue
+			else:
+				Bar.nBars += 1
+				number = line[0:4]
+				estado = line[6]
+				tipo = line[7]
+				grupoBase = line[8:9]
+				nome = line[10:21]
+				area = line[73:75]
+				myBars.append(Bar(number,estado,tipo,grupoBase,nome,area))
 	if (line.startswith("ULOG")):
-		# Find rel and his file names
 		if (fLines[entrie+2].rfind("rel") != -1):
-			Bar.relPath = fLines[entrie+2]
-			print(Bar.relPath)
+			Bar.relPath = fLines[entrie+2].rstrip("\n")
 		if (fLines[entrie+2].rfind("his") != -1):
-			Bar.relPath = fLines[entrie+2]
-			print(Bar.relPath)
+			Bar.hisPath = fLines[entrie+2].rstrip("\n")
 
-print(Bar.caseTitle)
-#    print(line, end="")
 #------------------------------------------------------------------------------
+result = runAnarede(file)
+files = [Bar.relPath, Bar.hisPath]
+moveFiles(pathAnarede, pathWork, files)
+printBars()
+
+print("Barras lidas")
+for bar in myBars:
+	print(Bar.nBars)
+	print(bar.printBar)
 print("--- %s seconds ---" % (time.time() - start_time))
-#result = runAnarede(file)
-result = subprocess.run(["anarede", file], stdout=subprocess.PIPE, text=True, input="Hello from the other side")
-# the files created are being saved in anarede folder
-if (result == 0):
-	print(result)
