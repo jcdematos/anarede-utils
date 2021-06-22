@@ -5,3 +5,4 @@
 *.out
 *.rel
 *.pyc
+*/cpflow_*
