@@ -5,24 +5,23 @@ import matplotlib.pyplot as plt
 from collections import namedtuple
 import tkinter as tk
 from tkinter import filedialog
-import logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 Barra = namedtuple('Barra', 'title, xtitle, ytitle, barra, xdata, ydata')
-#barra.append(Entrie('Titulo - Barra', 'xtitle', 'MW', 'ytitle', 'Tensoa V', 'barra', [1], [2]))
+
 barra = []
 file = "pv.plt"
 
-if len(sys.argv) > 1:
-    for argument in (sys.argv):
-        if argument == '-d':
-            logging.info("Command line argument -d")
-            root = tk.Tk()
-            root.withdraw()
-            file = filedialog.askopenfilename()
-        if argument == '-o':
-            # open file from string passed
-            pass
+def openFile(sys, file):
+    if len(sys.argv) > 1:
+        for argument in (sys.argv):
+            if argument == '-d':
+                root = tk.Tk()
+                root.withdraw()
+                file = filedialog.askopenfilename()
+            if argument == '-o':
+                # open file from string passed
+                pass
+    return file
 
 start_time = time.time()
 if 1:
