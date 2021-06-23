@@ -19,10 +19,13 @@
   4. Dados de carga
 
 #### cpflowGen
-1. Generate files variying PF
+1. ~~Generate files variying PF~~
   1. Change PF
+
+#### readPV
+1. ~~Ler o arquivo plt~~
+2. ~~Descartar barras de geração~~
+3. Pegar margem de carregamento
+4. Pegar tensao crítica
+
 2. Executar o pwf de CPFLOW
-3. Ler o arquivo plt
-  1. Descartar barras de geração
-  2. Pegar margem de carregamento
-  3. Pegar tensao crítica
