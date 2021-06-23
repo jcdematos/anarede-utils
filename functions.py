@@ -35,6 +35,7 @@ def anaredePath(config="anaredePath.config"):
 	return False
 
 def workPath(file):
+	""" Gets path of a file """
 	fileStart = file.rfind("/")
 	return file[0:fileStart]
 
