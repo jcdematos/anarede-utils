@@ -1,10 +1,10 @@
 TITU
 ****   Sistema teste de 14 barras - IEEE  Base ****   
-(DOPC IMPR
+DOPC IMPR
 ((Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E
-(QLIM L CREM L CTAP D STEP L BPSI L NEWT L MOCT L MOCG D MOCF D RCVG L
-(RMON L FILE L MFCT D FLAT D PARM L
-(99999   
+QLIM L CREM L CTAP D BPSI L NEWT L MOCT L MOCG D MOCF D RCVG L
+RMON L FILE L MFCT D FLAT D PARM L
+99999   
 DCTE
 (Mn) ( Val) (Mn) ( Val) (Mn) ( Val) (Mn) ( Val) (Mn) ( Val) (Mn) ( Val) 
 BASE   100. DASE   100. TEPA     .1 EXST     .4 TETP     .5 TBPA     5.
@@ -63,7 +63,7 @@ DINC IMPR FILE
 (2345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
 (tp) (no ) C (tp) (no ) C (tp) (no ) C (tp) (no ) O ( P ) ( Q ) (Pmx) (Qmx)
 (AREA 1     E                                        0.050 0.000
-AREA 1                                              0.050 0.000
+AREA 1                                              0.050 0.050
 99999
 DMET IMPR FILE
 (   0    |    1    |    2    |    3    |    4    |    5    |    6    |    7    |    8    |    9    |   10    |   11    |   12    |   13    |   14    |
