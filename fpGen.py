@@ -3,7 +3,6 @@ PROGRAM NAME - fpGen
 PROGRAMMER - J. Matos, 06-2021
 USAGE - Escolha um caso base e gera cpflows como diferentes fatores de potência.
 		Dar uma entrada de quantos gerar, limite superior e inferior do fator
-
 DATE - 21/06/2021
 BUGS -
 DESCRIPTION - Cria casos de fluxo de potência continuado com diferentes fatores
@@ -64,13 +63,21 @@ def saveCPFLOWpwf(fLines, fp, workPath):
 	file.close()
 	return True
 
-file = openFile(sys)
-fLines = readFile(file)
-nLinha = findDINC(fLines)
-pathWork = workPath(file)
+def runCPFLOW(folder):
+	number = str(folder.name)[7:]
+	file = str(folder)+"\\cpflow_"+number+".pwf"
+	print(file)
 
-contador = 0
-while contador < 200:
-	[newfLines, newFP] = genCPFLOW(fLines, nLinha)
-	if saveCPFLOWpwf(newfLines, newFP, pathWork):
-		contador+=1
+	runAnarede(file)
+
+def run():
+	file = openFile(sys)
+	fLines = readFile(file)
+	nLinha = findDINC(fLines)
+	pathWork = workPath(file)
+
+	contador = 0
+	while contador < 10:
+		[newfLines, newFP] = genCPFLOW(fLines, nLinha)
+		if saveCPFLOWpwf(newfLines, newFP, pathWork):
+			contador+=1
