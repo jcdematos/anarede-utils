@@ -2,6 +2,15 @@
 ## Organização das Tarefas
 
 ### Programas
+#### Main
+1. readPWF - run the base case
+2. readREL - read the report created
+3. cpflowGen - generated cpflow with varied growth factors
+4. cpflowSimulation - run all the cpflows
+5. readPV - read all plots created
+6. write all data in a csv (or another option)
+7. create training data and test data
+
 #### readPWF
 1. Ler um arquivo PWF
   1. ~~Encontra nome dos arquivos .his e .rel gerados~~
@@ -25,7 +34,12 @@
 #### readPV
 1. ~~Ler o arquivo plt~~
 2. ~~Descartar barras de geração~~
-3. Pegar margem de carregamento
-4. Pegar tensao crítica
+3. ~~Pegar margem de carregamento~~
+  1. Achar ponto de máximo ou minímo no eixo y
+4. ~~Pegar tensao crítica~~
 
-2. Executar o pwf de CPFLOW
+#### cpflowSimulation
+1. Get all folders generated in cpflowGen
+2. Simulate the cases in each folder
+3. Move the created files to each folder
+4. Run readPV inside each folder
