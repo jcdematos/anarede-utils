@@ -57,3 +57,35 @@ def moveFiles(anaPath, workPath, filesList, mkdir=False, dirName="tempDir"):
 		if os.path.exists(dst): # Delete file if already exists
 			Path(dst).unlink(True)
 		Path(scr).rename(dst)
+
+	commonFiles = ["pv.plt", "Qlim.out", "Relat.out", "Vtan.out", \
+		"DOS.OUT"]
+	filesList = []
+	for common in commonFiles:
+		path = anaPath+"\\"+common
+		if Path(path).exists():
+			filesList.append(path)
+	savList = SAVFileList(anaPath)
+	filesList = filesList + savList
+	return filesList
+
+def SAVFileList(anaPath):
+	""" create list of .SAV files """
+	contador = 1
+	path = anaPath+"\\"+"CONT_00"+str(contador)+".SAV"
+	contList = []
+	while Path(path).exists():
+		contList.append(path)
+		contador+=1
+		path = anaPath+"\\"+"CONT_00"+str(contador)+".SAV"
+	return contList
+
+def getFolders(folderPath):
+	""" Get all cpflow folders in a folder """
+	folderList = []
+	if Path(folderPath).exists():
+		return Path(folderPath).glob('cpflow_*')
+	else:
+		print("Incorrect file path")
+		return False
+	return folderList
