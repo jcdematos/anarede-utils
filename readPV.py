@@ -3,75 +3,101 @@ PROGRAM NAME - readPV
 PROGRAMMER - J. Matos, 06-2021
 DATE - Started 22/06/2021
 DESCRIPTION - Funções para ler um pv.plot, retornar os plots organizados em
-              barras, além de função para gerar a margem de carregamento e
-              tensão critica do sistema.
+			  barras, além de função para gerar a margem de carregamento e
+			  tensão critica do sistema.
 """
-import sys
 import re
-import time
 import matplotlib.pyplot as plt
-from collections import namedtuple
+import numpy as np
 from functions import *
 
 class Plot:
-    """ Class to hold the data for each plot """
-    def __init__(self, barNumber, xdata, ydata):
-        self.barNumber = barNumber
-        self.xdata = xdata
-        self.ydata = ydata
+	""" Class to hold the data for each plot """
+	def __init__(self, barNumber, xdata, ydata):
+		self.barNumber = barNumber
+		self.xdata = xdata
+		self.ydata = ydata
+
+	def addInflection(self, xi, yi):
+		self.xi = xi
+		self.yi = yi
 
 def typeByNumber(number, myBars):
+	""" type of the bar by its number """
 	for bar in myBars:
 		if bar.number == number:
 			return bar.tipo
 
 def barraPQ(number, myBars):
-    if typeByNumber(number, myBars) == "":
-        return True
-    if typeByNumber(number, myBars) == "0":
-        return True
+	""" Finds if a bar is PQ or not """
+	if typeByNumber(number, myBars) == "":
+		return True
+	if typeByNumber(number, myBars) == "0":
+		return True
+	return False
 
 def readPV(variable, myBars, file="none"):
-    myPlots = []
-    file = openFile(sys, file)
-    fLines = readFile(file)
+	""" Le um arquivo pv.plot and returns as a list, variavel pode ser "P", "V"
+	ou "Q", sendo a variável de interesse no pv.plt. """
+	myPlots = []
+	file = openFile(sys, file)
+	fLines = readFile(file)
 
-    endPlot = fLines[2]
-    endFile = "   0\n"
-    variable = "V"
+	endFile = "   0\n"
 
-    patternValores = r"\d+[.]\d{4}"
-    barNumber = ""
-    readingPlot = False
-    for entrie in range(3, len(fLines)):
-        line = fLines[entrie]
-        if line.startswith(variable):
-            barNumber = line[4:9].strip(" ")
-            readingPlot = True
-            x = []
-            y = []
-            #if bar is generator, do not read
-        elif line.startswith(endPlot) or line.startswith(endFile):
-            if readingPlot:
-                # found end of plot
-                myPlots.append(Plot(barNumber, x, y)) # add new plot
-                readingPlot = False
-        elif readingPlot:
-            values = re.findall(patternValores, fLines[entrie])
-            x.append(float(values[0]))
-            y.append(float(values[1]))
-    return myPlots
+	patternValores = r"\d+[.]\d{4}" # regex para valores do gráfico
+	patternIndice = r"(\d+)" # regex para numero de linhas do gráfico
 
-def loadMargin(plot, myBars):
-    if not barraPQ(plot.barNumber, myBars):
-        return False
-    print("BARRA")
-    print(plot.barNumber)
-    print(plot.xdata)
-    print(plot.ydata)
-    x0 = plot.xdata[0]
-    y0 = plot.ydata[0]
-    yMax = min(plot.ydata)
-    print(x0)
-    print(y0)
-    print(yMax)
+	barNumber = ""
+	readingPlot = False
+	for entrie in range(3, len(fLines)):
+		line = fLines[entrie]
+		if line.startswith(variable):
+			barNumber = line[4:9].strip(" ")
+			readingPlot = True
+			x = []
+			y = []
+		elif len(re.findall(patternIndice, line)) == 1:
+			# Se encontrou numero de linhas, gráfico acabou
+			if readingPlot:
+				myPlots.append(Plot(barNumber, x, y)) # add new plot
+				readingPlot = False
+		elif readingPlot:
+			# Adiciona linhas as vetor x e y
+			values = re.findall(patternValores, fLines[entrie])
+			x.append(float(values[0]))
+			y.append(float(values[1]))
+	return myPlots
+
+def printPlot(plot, path, inflectionPoint=False, show=False):
+	""" Either show or save the plot of a bar in the given path """
+	plt.plot(plot.xdata, plot.ydata)
+	if inflectionPoint:
+		# Inclui o ponto de tensão critíca no gráfico, se ele existe
+		plt.plot(inflectionPoint[0], inflectionPoint[1], color='red', marker="o")
+	if show:
+		plt.show()
+	else:
+		plt.savefig(path+"/figures/"+str(plot.barNumber)+".png")
+	plt.close()
+
+def criticalVoltage(plot):
+	""" Returns the critical voltage """
+	return plot.yi
+
+def inflectionPoint(x, y):
+	""" Finds critical voltage point """
+	dx = np.gradient(x) # Deriva eixo x
+	desPoints = []
+	for point in dx:
+		if point > -1 and point < 1:
+			# Encontra pontos próximo de 0
+			desPoints.append(point)
+	point = min(desPoints, key=abs) # Ponto mais proximo do zero
+	indice = np.where(dx == point)[0][0] # Indice do ponto
+	return x[indice], y[indice]
+
+def loadMargin(plot):
+	""" Load margin of a bar """
+	margin = plot.xi - plot.xdata[0]
+	return margin
