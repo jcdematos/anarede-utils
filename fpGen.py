@@ -61,20 +61,18 @@ def saveCPFLOWpwf(fLines, fp, workPath):
 	return True
 
 def runCPFLOW(folder):
+	""" Runs cpflow, folder must be Path() """
 	number = str(folder.name)[7:]
 	file = str(folder)+"\\cpflow_"+number+".pwf"
 	print(file)
-
 	runAnarede(file)
 
-def run():
-	file = openFile(sys)
+def generateCPFLOW(file, pathWork, n):
+	file = openFile(file)
 	fLines = readFile(file)
 	nLinha = findDINC(fLines)
-	pathWork = workPath(file)
-
 	contador = 0
-	while contador < 10:
+	while contador < n:
 		[newfLines, newFP] = genCPFLOW(fLines, nLinha)
 		if saveCPFLOWpwf(newfLines, newFP, pathWork):
 			contador+=1
