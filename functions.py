@@ -47,7 +47,7 @@ def runAnarede(file):
 	""" Runs anarede with the given file """
 	return subprocess.run(["anarede", file], stdout=subprocess.PIPE, text=True)
 
-def moveFiles(anaPath, workPath, filesList, mkdir=False, dirName="tempDir"):
+def moveFiles(anaPath, workPath, filesList):
 	""" Move files from anarede work dir to the desired work dir """
 	anaPath = anaPath
 	workPath = workPath
