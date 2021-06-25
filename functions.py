@@ -6,7 +6,19 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog
 
-def openFile(sys, file="none"):
+def readConfig(file):
+	fLines = readFile(file)
+	for entrie in range(0, len(fLines)):
+		if fLines[entrie].startswith("AnaPath"):
+			pathAnarede = fLines[entrie+1].strip("\n")
+		elif fLines[entrie].startswith("CasoBase"):
+			casoBase = fLines[entrie+1].strip("\n")
+		elif fLines[entrie].startswith("BaseCPFLOW"):
+			baseCPFLOW = fLines[entrie+1].strip("\n")
+	pathWork = workPath(file)
+	return pathAnarede, casoBase, baseCPFLOW, pathWork
+
+def openFile(file="none"):
 	""" Abri arquivo a ser usado, dado por argumento ou dialog box """
 	if file == "none":
 		if len(sys.argv) > 1:
