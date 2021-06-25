@@ -3,10 +3,10 @@
 
 ### Programas
 #### Main
-1. readPWF - run the base case
-2. readREL - read the report created
-3. cpflowGen - generated cpflow with varied growth factors
-4. cpflowSimulation - run all the cpflows
+1. ~~readPWF - run the base case~~
+2. ~~readREL - read the report created~~
+3. ~~cpflowGen - generated cpflow with varied growth factors~~
+4. ~~cpflowSimulation - run all the cpflows~~
 5. readPV - read all plots created
 6. write all data in a csv (or another option)
 7. create training data and test data
@@ -39,7 +39,14 @@
 4. ~~Pegar tensao crítica~~
 
 #### cpflowSimulation
-1. Get all folders generated in cpflowGen
-2. Simulate the cases in each folder
-3. Move the created files to each folder
+1. ~~Get all folders generated in cpflowGen~~
+2. ~~Simulate the cases in each folder~~
+3. ~~Move the created files to each folder~~
 4. Run readPV inside each folder
+  1. Pegar margem de carregamento
+  2. Pegar tensão critíca
+5. Salvar cada caso com os dados:
+  1. Dados de cada barra
+  2. Taxa de crescimento
+  3. Margem de carregamento
+  4. Tensão critíca
