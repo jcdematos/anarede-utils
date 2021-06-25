@@ -1,17 +1,14 @@
 """
 PROGRAM NAME - fpGen
 PROGRAMMER - J. Matos, 06-2021
-USAGE - Escolha um caso base e gera cpflows como diferentes fatores de potência.
-		Dar uma entrada de quantos gerar, limite superior e inferior do fator
 DATE - 21/06/2021
 BUGS -
 DESCRIPTION - Cria casos de fluxo de potência continuado com diferentes fatores
 			  de crescimento.
 """
-import time
-import random
-from pathlib import Path
 from functions import *
+import random
+import time
 from random import seed
 
 random.seed(time.time())
