@@ -7,11 +7,8 @@ DESCRIPTION - Function to read a .REL file.
 """
 from functions import *
 
-def readREL(myBars, file="none"):
+def readREL(myBars, fLines):
     """ Read a .REL file and add data to a Bar object """
-    file = openFile(sys, file)
-    fLines = readFile(file)
-
     for entrie in range(0, len(fLines)):
         line = fLines[entrie]
         if (line.find("RELATORIO DE BARRAS CA") > -1):
