@@ -1,5 +1,5 @@
 TITU
-Sistema-Teste de 107 Barras - Caso Base - Tatiane, Tetiana, Roman e Rodrigo.                                         
+Sistema-Teste de 107 Barras - Caso Base                                        
 DOPC IMPR
 (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E (Op) E
 QLIM L CREM L CTAP D STEP L BPSI L NEWT L MOCT L MOCG D MOCF D RCVG L
@@ -341,20 +341,7 @@ DGER
 99999
 EXIC newt 
 DOSC
-(REN    PV.PLT   PV1.PLT
-(REN    Qlim.out  Qlim1.out
-(REN    Relat.out Relat1.out
-(REN    VTan.out  VTan1.out
-(   0    |    1    |    2    |    3    |    4    |    5    |    6    |    7    |    8    |    9    |   10    |   11    |   12    |   13    |   14    |
-(2345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789 
-(MOVE   PV.PLT  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\pv1.plt
-(MOVE   Qlim.out  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\Qlim1.out          
-(MOVE   Relat.out  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\Relat1.out          
-(MOVE   CONT_001.SAV  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\CONT_001.SAV
-(MOVE   CONT_002.SAV  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\CONT_002.SAV 
-(MOVE   CONT_003.SAV  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\CONT_003.SAV 
-(MOVE   CONT_004.SAV  D:\tati\Dropbox\Academico\ProjetosUSP\pwf\fp1.000\CONT_004.SAV
-(TASKKILL /F  /im ANAREDE.exe
+TASKKILL /F  /im ANAREDE.exe
 EXIT
 99999
 FIM
