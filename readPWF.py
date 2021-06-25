@@ -11,6 +11,7 @@ DESCRIPTION - Programa que le o pwf de um caso base do ANAREDE e remove dados
 import time
 from functions import *
 from readREL import *
+from readPV import *
 
 class Bar:
 	""" Class to hold data for the bars """
@@ -18,7 +19,8 @@ class Bar:
 	caseTitle = ""
 	relPath = ""
 	hisPath = ""
-	files = [relPath, hisPath]
+	loadMargin = ""
+	criticalVoltage = ""
 	def __init__(self, number, estado, tipo, grupoBase, nome, area):
 		self.number = number.strip(" ")
 		self.estado = estado.strip(" ")
@@ -27,42 +29,25 @@ class Bar:
 		self.nome = nome.strip(" ")
 		self.area = area.strip(" ")
 
-
 	def addFluxPot(self, pg, qg, pl, ql):
 		self.PG = pg.strip(" ")
 		self.QG = qg.strip(" ")
 		self.PL = pl.strip(" ")
 		self.QL = ql.strip(" ")
 
+	def printBarMin(self):
+		print(self.number +"|"+ self.estado +"|"+ self.tipo +"|"+ self.grupoBase +"|"+ self.nome +"|"+ self.area)
 	def printBar(self):
-		print(self.number + self.estado + self.tipo + self.grupoBase + self.nome + self.area)
-		print(self.PG + self.QG + self.PL + self.QL)
+		print(self.number +"|"+ self.estado +"|"+ self.tipo +"|"+ self.grupoBase +"|"+ self.nome +"|"+ self.area)
+		print(self.PG+"|"+ self.QG +"|"+ self.PL +"|"+ self.QL)
+
 
 def printBars():
-	print(Bar.caseTitle, end="")
-	print(Bar.hisPath, end="")
-	print(Bar.relPath, end="")
+	print(Bar.caseTitle)
+	print(Bar.hisPath)
+	print(Bar.relPath)
 
-def readPWF():
-	pass
-
-
-myBars = []
-
-def main():
-	# Make directory structure
-	file = openFile(sys)
-	print("Reading file : %s" % file)
-	pathAnarede = anaredePath()
-	print("Anarede path is " + pathAnarede)
-	pathWork = workPath(file)
-	print("Working Directory path is " + pathWork)
-
-	start_time = time.time()
-	#------------------------------------------------------------------------------
-
-	fLines = readFile(file)
-	#------------------------------------------------------------------------------
+def readPWF(fLines, myBars):
 	for entrie in range(0, len(fLines)):
 		line = fLines[entrie]
 		if (line.startswith("TITU")):
@@ -94,17 +79,48 @@ def main():
 			if (fLines[entrie+2].rfind("his") != -1):
 				Bar.hisPath = fLines[entrie+2].rstrip("\n")
 
+myBars = []
+
+def main():
+	# Make directory structure
+	file = openFile(sys)
+	print("Reading file : %s" % file)
+	pathAnarede = anaredePath()
+	print("Anarede path is " + pathAnarede)
+	pathWork = workPath(file)
+	print("Working Directory path is " + pathWork)
+
+	start_time = time.time()
+	fLines = readFile(file)
+	#------------------------------------------------------------------------------
+	readPWF(fLines)
+
 	#------------------------------------------------------------------------------
 	result = runAnarede(file)
 	files = [Bar.relPath, Bar.hisPath]
 	moveFiles(pathAnarede, pathWork, files)
 
 
+	filePV ="C:\\Users\\Julio Matos\\ownCloud\\tcc\\code\\anarede-utils\\pv.plt"
 	readREL(myBars, pathWork+"/"+Bar.relPath)
+	myPlots = readPV("V", myBars, filePV)
 
-	print("Barras lidas")
-	for bar in myBars:
-		Bar.printBar(bar)
+	voltages = []
+	critical = 1
+	for plot in myPlots:
+		""" Gets the critical voltage and load margin of the system """
+		if barraPQ(plot.barNumber, myBars):
+			x, y = inflectionPoint(plot.xdata, plot.ydata)
+			plot.addInflection(x, y)
+			voltage = criticalVoltage(plot,myBars)
+			if (voltage < critical):
+				critical = voltage
+				margin = loadMargin(plot, myBars)
+			voltages.append(criticalVoltage(plot,myBars))
+#			printPlot(plot, [plot.xi, plot.yi])
+
+	Bar.criticalVoltage = critical
+	Bar.loadMargin = margin
 	print("--- %s seconds ---" % (time.time() - start_time))
 
 if __name__ == "__main__":
