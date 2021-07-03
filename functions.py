@@ -2,6 +2,7 @@ import sys
 import os
 import subprocess
 from pathlib import Path
+import shutil
 
 import tkinter as tk
 from tkinter import filedialog
@@ -64,11 +65,11 @@ def moveFiles(anaPath, workPath, filesList):
 	anaPath = anaPath
 	workPath = workPath
 	for file in filesList:
-		scr = anaPath+"/"+file
+		src = anaPath+"/"+file
 		dst = workPath+"/"+file
 		if os.path.exists(dst): # Delete file if already exists
 			Path(dst).unlink(True)
-		Path(scr).rename(dst)
+		shutil.move(src,dst)
 
 	commonFiles = ["pv.plt", "Qlim.out", "Relat.out", "Vtan.out", \
 		"DOS.OUT"]
