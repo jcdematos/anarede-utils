@@ -40,7 +40,7 @@ def readPV(variable, myBars, file="none"):
 	""" Le um arquivo pv.plot and returns as a list, variavel pode ser "P", "V"
 	ou "Q", sendo a variável de interesse no pv.plt. """
 	myPlots = []
-	file = openFile(sys, file)
+	file = openFile(file)
 	fLines = readFile(file)
 
 	endFile = "   0\n"
@@ -78,7 +78,9 @@ def printPlot(plot, path, inflectionPoint=False, show=False):
 	if show:
 		plt.show()
 	else:
-		plt.savefig(path+"/figures/"+str(plot.barNumber)+".png")
+		if Path(str(path)+"/figures").exists() == False:
+			Path(str(path)+"/figures").mkdir()
+		plt.savefig(str(path)+"/figures/"+str(plot.barNumber)+".png")
 	plt.close()
 
 def criticalVoltage(plot):
